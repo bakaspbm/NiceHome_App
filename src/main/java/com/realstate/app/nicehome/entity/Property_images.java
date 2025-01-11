@@ -1,9 +1,6 @@
 package com.realstate.app.nicehome.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
@@ -15,9 +12,14 @@ public class Property_images {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    private Properties properties;
+
     private String url;
     private boolean is_cover;
     private Date created_at;
+    @ManyToOne
+    @JoinColumn(name = "images")
+    private Properties properties;
+
+
 
 }

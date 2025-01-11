@@ -1,12 +1,11 @@
 package com.realstate.app.nicehome.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.Set;
+
 @Data
 @Entity
 public class Properties {
@@ -15,16 +14,32 @@ public class Properties {
     private Integer id;
     private String title;
     private String description;
-    private Address address;
+
     private int price ;
-    private Type type;
-    private Category category;
+
+
     private int bedrooms;
     private int bathrooms;
     private int garage_spaces;
+    @Enumerated(EnumType.STRING)
+   private Availability availability;
+    @OneToOne
+    @JoinColumn(name = "address")
+    private Address address;
 
-  //  private Availability availability;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     private Date created_at;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany
+    @JoinColumn(name = "propriety_images")
+    private Set<Property_images> images;
+    @OneToOne
+    private Rentals rentals;
 
 }
